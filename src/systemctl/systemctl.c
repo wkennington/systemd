@@ -1867,7 +1867,7 @@ static int start_unit_one(
                         return log_oom();
 
                 r = set_consume(s, p);
-                if (r < 0) {
+                if (r < 0 && r != -EEXIST) {
                         log_error("Failed to add path to set.");
                         return r;
                 }
