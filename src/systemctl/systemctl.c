@@ -2561,7 +2561,7 @@ static int start_unit_one(
 
                 log_debug("Adding %s to the set", p);
                 r = set_consume(s, p);
-                if (r < 0)
+                if (r < 0 && r != -EEXIST)
                         return log_oom();
         }
 
