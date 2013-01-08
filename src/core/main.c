@@ -1883,7 +1883,7 @@ finish:
                         char_array_0(sfd);
 
                         i = 0;
-                        args[i++] = SYSTEMD_BINARY_PATH;
+                        args[i++] = "/run/current-system/systemd/lib/systemd/systemd";
                         if (switch_root_dir)
                                 args[i++] = "--switched-root";
                         args[i++] = arg_running_as == SYSTEMD_SYSTEM ? "--system" : "--user";
