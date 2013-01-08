@@ -13,3 +13,5 @@ DefaultDependencies=no
 Conflicts=shutdown.target
 OnFailure=emergency.target
 OnFailureJobMode=replace-irreversibly
+
+X-StopOnReconfiguration=yes

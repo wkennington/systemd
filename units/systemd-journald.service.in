@@ -25,3 +25,8 @@ WatchdogSec=1min
 # Increase the default a bit in order to allow many simultaneous
 # services being run since we keep one fd open per service.
 LimitNOFILE=16384
+
+# Don't restart journald, since that causes services connected to
+# journald to stop logging (see
+# https://bugs.freedesktop.org/show_bug.cgi?id=56043).
+X-RestartIfChanged=no
