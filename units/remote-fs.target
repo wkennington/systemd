@@ -12,5 +12,7 @@ After=remote-fs-pre.target
 DefaultDependencies=no
 Conflicts=shutdown.target
 
+X-StopOnReconfiguration=yes
+
 [Install]
 WantedBy=multi-user.target

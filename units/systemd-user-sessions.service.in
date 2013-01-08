@@ -15,3 +15,6 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStart=@rootlibexecdir@/systemd-user-sessions start
 ExecStop=@rootlibexecdir@/systemd-user-sessions stop
+
+# Restart kills all active sessions.
+X-RestartIfChanged=no

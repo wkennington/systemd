@@ -13,3 +13,5 @@ Conflicts=shutdown.target
 After=local-fs-pre.target
 OnFailure=emergency.target
 OnFailureJobMode=replace-irreversibly
+
+X-StopOnReconfiguration=yes

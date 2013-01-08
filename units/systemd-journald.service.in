@@ -30,3 +30,8 @@ FileDescriptorStoreMax=1024
 # flushing journal files to disk, we might need a lot of fds when many
 # journal files are combined.
 LimitNOFILE=16384
+
+# Don't restart journald, since that causes services connected to
+# journald to stop logging (see
+# https://bugs.freedesktop.org/show_bug.cgi?id=56043).
+X-RestartIfChanged=no
