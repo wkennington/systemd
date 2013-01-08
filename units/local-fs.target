@@ -11,3 +11,5 @@ Documentation=man:systemd.special(7)
 After=local-fs-pre.target
 OnFailure=emergency.target
 OnFailureIsolate=no
+
+X-StopOnReconfiguration=yes
