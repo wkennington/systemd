@@ -112,6 +112,10 @@ static int read_reply(int fd, struct address **list, unsigned *n_list) {
                     ifaddrmsg->ifa_scope == RT_SCOPE_NOWHERE)
                         continue;
 
+                if (ifaddrmsg->ifa_family == AF_INET6 &&
+                    ifaddrmsg->ifa_scope == RT_SCOPE_LINK)
+                        continue;
+
                 if (ifaddrmsg->ifa_flags & IFA_F_DEPRECATED)
                         continue;
 
