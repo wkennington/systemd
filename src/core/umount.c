@@ -404,6 +404,8 @@ static int mount_points_list_umount(MountPoint **head, bool *changed, bool log_e
                  * anyway, since we are running from it. They have
                  * already been remounted ro. */
                 if (path_equal(m->path, "/")
+                    || path_equal(m->path, "/nix")
+                    || path_equal(m->path, "/nix/store")
 #ifndef HAVE_SPLIT_USR
                     || path_equal(m->path, "/usr")
 #endif
