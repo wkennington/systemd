@@ -19,3 +19,4 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStart=@rootlibexecdir@/systemd-update-utmp reboot
 ExecStop=@rootlibexecdir@/systemd-update-utmp shutdown
+X-RestartIfChanged=false
