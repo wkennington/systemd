@@ -29,7 +29,6 @@ ConditionVirtualization=|lxc-libvirt
 
 [Service]
 # the VT is cleared by TTYVTDisallocate
-ExecStart=-/sbin/agetty --noclear %I $TERM
 Type=idle
 Restart=always
 RestartSec=0

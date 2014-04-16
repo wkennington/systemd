@@ -17,7 +17,6 @@ IgnoreOnIsolate=yes
 ConditionPathExists=/dev/pts/%I
 
 [Service]
-ExecStart=-/sbin/agetty --noclear --keep-baud pts/%I 115200,38400,9600 $TERM
 Type=idle
 Restart=always
 RestartSec=0
