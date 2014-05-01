@@ -301,8 +301,7 @@ int main(int argc, char *argv[]) {
                 goto finish;
         }
 
-        cmdline[i++] = "/sbin/fsck";
-        cmdline[i++] =  arg_repair;
+        cmdline[i++] = "/run/current-system/sw/sbin/fsck";
         cmdline[i++] = "-T";
 
         /*
