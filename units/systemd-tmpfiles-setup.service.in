@@ -11,7 +11,7 @@ Documentation=man:tmpfiles.d(5) man:systemd-tmpfiles(8)
 DefaultDependencies=no
 Conflicts=shutdown.target
 After=local-fs.target systemd-sysusers.service
-Before=sysinit.target shutdown.target
+Before=shutdown.target
 RefuseManualStop=yes
 
 [Service]
