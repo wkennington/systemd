@@ -968,6 +968,33 @@ static int address_label_handler(sd_netlink *rtnl, sd_netlink_message *m, void *
         return 1;
 }
 
+static int neighbor_handler(sd_netlink *rtnl, sd_netlink_message *m, void *userdata) {
+        Link *link = userdata;
+        int r;
+
+        assert(rtnl);
+        assert(m);
+        assert(link);
+        assert(link->ifname);
+        assert(link->neighbor_messages > 0);
+
+        link->neighbor_messages--;
+
+        if (IN_SET(link->state, LINK_STATE_FAILED, LINK_STATE_LINGER))
+                return 1;
+
+        r = sd_netlink_message_get_errno(m);
+        if (r < 0 && r != -EEXIST)
+                log_link_warning_errno(link, r, "could not set neighbor: %m");
+        else if (r >= 0)
+                manager_rtnl_process_address(rtnl, m, link->manager);
+
+        if (link->neighbor_messages == 0)
+                log_link_debug(link, "Neighbors set");
+
+        return 1;
+}
+
 static int link_push_uplink_dns_to_dhcp_server(Link *link, sd_dhcp_server *s) {
         _cleanup_free_ struct in_addr *addresses = NULL;
         size_t n_addresses = 0, n_allocated = 0;
@@ -1082,6 +1109,7 @@ static int link_set_bridge_fdb(Link *link) {
 static int link_enter_set_addresses(Link *link) {
         AddressLabel *label;
         Address *ad;
+        Neighbor *neighbor;
         int r;
 
         assert(link);
@@ -1114,6 +1142,17 @@ static int link_enter_set_addresses(Link *link) {
                 }
 
                 link->address_label_messages++;
+        }
+
+        LIST_FOREACH(neighbors, neighbor, link->network->neighbors) {
+                r = neighbor_configure(neighbor, link, neighbor_handler, false);
+                if (r < 0) {
+                        log_link_warning_errno(link, r, "Could not set neighbor: %m");
+                        link_enter_failed(link);
+                        return r;
+                }
+
+                link->neighbor_messages++;
         }
 
         /* now that we can figure out a default address for the dhcp server,

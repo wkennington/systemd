@@ -72,6 +72,7 @@ typedef struct Link {
 
         unsigned address_messages;
         unsigned address_label_messages;
+        unsigned neighbor_messages;
         unsigned route_messages;
         unsigned routing_policy_rule_messages;
         unsigned routing_policy_rule_remove_messages;
